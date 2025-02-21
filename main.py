@@ -16,6 +16,13 @@ client = OpenSearch(
     ssl_show_warn=False,
 )
 
-s = Search(using=client, index="ctm")
+s = (
+    Search(using=client, index="ctm")
+    .source(["user", "pol_action", "guardpoint", "pol_permission", "policy"])
+    .query("match_all")
+)
 
 response = s.execute()
+
+
+print(response)
